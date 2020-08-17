@@ -7,25 +7,21 @@
 
 package frc.robot;
 
-import org.opencv.core.Mat;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
-import org.opencv.core.Point;
+import javax.sound.sampled.AudioFileFormat;
 
-import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.CvSource;
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.VideoMode;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.*;
-import frc.robot.subsystems.*;
+import frc.robot.commands.Auto;
+import frc.robot.commands.Catchball;
+import frc.robot.subsystems.CatchBall;
+import frc.robot.subsystems.Climbing;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.PDPCurrent;
+import frc.robot.subsystems.Shooter;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -35,8 +31,11 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-
+  public static Climbing m_climbing = new Climbing();
   public static DriveTrain m_drivetrain = new DriveTrain();
+  public static PDPCurrent m_PDPCurrent;
+  public static CatchBall m_catchball = new CatchBall();
+  public static Shooter m_shooter = new Shooter();
   public static OI m_oi;
 
   Command m_autonomousCommand;
@@ -49,9 +48,11 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
-    m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
-    // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+    m_PDPCurrent = new PDPCurrent();
+    SmartDashboard.putData("Auto mode", this.m_chooser);
+    /*m_chooser.setDefaultOption("Default Auto", new Auto());
+     chooser.addOption("My Auto", new MyAutoCommand());
+    SmartDashboard.putData("Auto mode", m_chooser);*/
   }
 
   /**
@@ -102,7 +103,7 @@ public class Robot extends TimedRobot {
      * autonomousCommand = new ExampleCommand(); break; }
      */
 
-    // schedule the autonomous command (example)
+    //schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
     }
@@ -141,4 +142,5 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+
 }

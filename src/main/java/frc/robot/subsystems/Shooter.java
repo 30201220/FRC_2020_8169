@@ -8,37 +8,29 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.commands.DriveControllerGeneral;
 
 /**
  * Add your docs here.
  */
-public class DriveTrain extends Subsystem {
-  private final VictorSPX motorLeft1 = new VictorSPX(RobotMap.MOTOR_LEFT_1_ID);
-  private final VictorSPX motorLeft2 = new VictorSPX(RobotMap.MOTOR_LEFT_2_ID);
-  private final VictorSPX motorRight1 = new VictorSPX(RobotMap.MOTOR_RIGHT_1_ID);
-  private final VictorSPX motorRight2 = new VictorSPX(RobotMap.MOTOR_RIGHT_2_ID);
+public class Shooter extends Subsystem {
+  private VictorSPX motorshooter1 = new VictorSPX(RobotMap.MOTOR_SHOOTER_1); 
+  private VictorSPX motorshooter2 = new VictorSPX(RobotMap.MOTOR_SHOOTER_2);
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    setDefaultCommand(new DriveControllerGeneral());
+    // setDefaultCommand(new MySpecialCommand());
   }
-
-  public void setLeftMotors(final double speedl) {
-    motorLeft1.set(ControlMode.PercentOutput, -speedl);
-    motorLeft2.set(ControlMode.PercentOutput, -speedl);
+  public void setMotorShooter1(double speed1){
+    motorshooter1.set(ControlMode.PercentOutput,speed1);
   }
-
-  public void setRightMotors(final double speedr) {
-    motorRight1.set(ControlMode.PercentOutput, speedr);
-    motorRight2.set(ControlMode.PercentOutput, speedr);
+  public void setMotorShooter2(double speed2){
+    motorshooter2.set(ControlMode.PercentOutput,-speed2);
   }
 }

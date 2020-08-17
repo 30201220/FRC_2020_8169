@@ -8,45 +8,58 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
+import frc.robot.Utilities;
 
-public class Move extends Command {
-  double m_time, m_Speed;
+public class DriveControllerGeneral extends Command {
 
-  public Move(double time, double Speed) {
-    m_time=time;
-    m_Speed=Speed;
+  public DriveControllerGeneral() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_climbing);
+    requires(Robot.m_drivetrain);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.m_climbing.setClimbMotor(m_Speed);
-    setTimeout(m_time);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    double speedr;
+    double speedl;
+
+    double triggerVal = Robot.m_oi.getDriverRawAxis(RobotMap.LEFT_TRIGGER) - Robot.m_oi.getDriverRawAxis(RobotMap.RIGHT_TRIGGER);
+    double stick = Utilities.scale(Robot.m_oi.getDriverRawAxis(RobotMap.LEFT_STICK_X), RobotMap.TURNING_RATE);
+
+    speedl = (triggerVal - stick);
+    speedr = (triggerVal + stick);
+
+    Robot.m_drivetrain.setLeftMotors(speedl*RobotMap.nSpeed);
+    Robot.m_drivetrain.setRightMotors(speedr*RobotMap.nSpeed);
+
+    SmartDashboard.putNumber("speedl", speedl);
+    SmartDashboard.putNumber("speedr", speedr);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_climbing.setClimbMotor(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.m_drivetrain.setLeftMotors(0);
+    Robot.m_drivetrain.setRightMotors(0);
   }
 }

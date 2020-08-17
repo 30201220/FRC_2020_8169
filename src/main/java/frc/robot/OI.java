@@ -7,11 +7,57 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.Catchball;
+import frc.robot.commands.Climbing;
+import frc.robot.commands.Shootball;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+  XboxController operatorController = new XboxController(RobotMap.OPERATOR_CONTROLLER);
+  XboxController driverController = new XboxController(RobotMap.DRIVER_CONTROLLER);
+  
+  Button dButtonA = new JoystickButton(this.driverController, RobotMap.BUTTON_A);
+	Button dButtonB = new JoystickButton(this.driverController, RobotMap.BUTTON_B);
+	Button dButtonX = new JoystickButton(this.driverController, RobotMap.BUTTON_X);
+	Button dButtonY = new JoystickButton(this.driverController, RobotMap.BUTTON_Y);
+	
+	Button oButtonA = new JoystickButton(this.operatorController, RobotMap.BUTTON_A);
+	Button oButtonB = new JoystickButton(this.operatorController, RobotMap.BUTTON_B);
+	Button oButtonY = new JoystickButton(this.operatorController, RobotMap.BUTTON_Y);
+	Button oButtonX = new JoystickButton(this.operatorController, RobotMap.BUTTON_X);
+
+  
+  public boolean getOperatorButton(int axis) {
+		return this.operatorController.getRawButton(axis);
+	}
+	
+	public boolean getDriverButton(int axis) {
+		return this.driverController.getRawButton(axis);
+	}
+	
+	public double getOperatorRawAxis(int axis) {
+		return this.operatorController.getRawAxis(axis);
+	}
+	
+	public double getDriverRawAxis(int axis) {
+		return this.driverController.getRawAxis(axis);
+	}
+	
+	public int getOperatorPOV(){
+		return this.operatorController.getPOV();
+  }
+  
+  public OI(){
+    //this.oButtonA.whenPressed(new Climbing());
+    this.oButtonY.whenPressed(new Catchball());
+    this.oButtonX.whenPressed(new Shootball());
+  }
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.

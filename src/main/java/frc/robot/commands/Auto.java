@@ -8,23 +8,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
 
-public class Move extends Command {
-  double m_time, m_Speed;
-
-  public Move(double time, double Speed) {
-    m_time=time;
-    m_Speed=Speed;
+public class Auto extends Command {
+  public Auto() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_climbing);
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.m_climbing.setClimbMotor(m_Speed);
-    setTimeout(m_time);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -35,13 +28,12 @@ public class Move extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_climbing.setClimbMotor(0);
   }
 
   // Called when another command which requires one or more of the same

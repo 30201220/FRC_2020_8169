@@ -9,39 +9,43 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
-public class Move extends Command {
-  double m_time, m_Speed;
-
-  public Move(double time, double Speed) {
-    m_time=time;
-    m_Speed=Speed;
+public class Catchball extends Command {
+  
+  public Catchball() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_climbing);
+    requires(Robot.m_catchball);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.m_climbing.setClimbMotor(m_Speed);
-    setTimeout(m_time);
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    double speed = 1;
+    Robot.m_catchball.setMotorCatchBall(speed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+  if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_Y) == false){
+    return true;
+  }else{
+    return false;
   }
+  }  
+  
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_climbing.setClimbMotor(0);
+    Robot.m_catchball.setMotorCatchBall(0);
   }
 
   // Called when another command which requires one or more of the same
