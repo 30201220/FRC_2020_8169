@@ -1,51 +1,43 @@
-/*----------------------------------------------------------------------------------------------------*/
-/*            88888888888888888888   1111111111111        66666666666666666666  99999999999999999999  */
-/*           88888888888888888888   1111111111111        66666666666666666666  99999999999999999999   */
-/*          888               88             111        666                   999               99    */
-/*         888               88             111        666                   999               99     */
-/*        888               88             111        666                   999               99      */
-/*       88888888888888888888             111        66666666666666666666  99999999999999999999       */
-/*      888               88             111        666               66                    99        */
-/*     888               88             111        666               66                    99         */
-/*    888               88             111        666               66                    99          */
-/*   88888888888888888888  11111111111111111111  66666666666666666666  99999999999999999999           */
-/*  88888888888888888888  11111111111111111111  66666666666666666666  99999999999999999999            */
-/*----------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.RobotMap;
-import frc.robot.commands.carcontrol.driveControl;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
-public class DriveTrain extends Subsystem {
-  private final TalonSRX motorLeft1 = new TalonSRX(RobotMap.MOTOR_LEFT_1_ID);
-  private final VictorSPX motorLeft2 = new VictorSPX(RobotMap.MOTOR_LEFT_2_ID);
-  private final TalonSRX motorRight1 = new TalonSRX(RobotMap.MOTOR_RIGHT_1_ID);
-  private final VictorSPX motorRight2 = new VictorSPX(RobotMap.MOTOR_RIGHT_2_ID);
+public class DriveTrain extends SubsystemBase {
+  private final VictorSPX motorleft1 = new VictorSPX(Constants.MOTOR_LEFT_1);
+  private final VictorSPX motorleft2 = new VictorSPX(Constants.MOTOR_LEFT_2);
+  private final VictorSPX motorright1 = new VictorSPX(Constants.MOTOR_RIGHT_1);
+  private final VictorSPX motorright2 = new VictorSPX(Constants.MOTOR_RIGHT_2);
+
+  /**
+   * Creates a new DriveTrain.
+   */
+  public DriveTrain() {
+   
+  }
 
   @Override
-  public void initDefaultCommand() {
-    setDefaultCommand(new driveControl());
-  }
-  
-  public void setLeftMotors(final double speedl) {
-    motorLeft1.set(ControlMode.PercentOutput, speedl);
-    motorLeft2.set(ControlMode.PercentOutput, speedl);
+  public void periodic() {
+    // This method will be called once per scheduler run
   }
 
-  public void setRightMotors(final double speedr) {
-    motorRight1.set(ControlMode.PercentOutput, -speedr);
-    motorRight2.set(ControlMode.PercentOutput, -speedr);
+  public void lmotorcontrol(double speed){
+    motorleft1.set(ControlMode.PercentOutput, speed);
+    motorleft2.set(ControlMode.PercentOutput, speed);
   }
-  public double getRightMotorsEncoder(){
-    return motorRight1.getSelectedSensorVelocity();
-  }
-  public double getLeftMotorsEncoder(){
-    return motorLeft1.getSelectedSensorVelocity();
+
+  public void rmotorcontrol(double speed){
+    motorright1.set(ControlMode.PercentOutput, speed);
+    motorright2.set(ControlMode.PercentOutput, speed);
   }
 }
