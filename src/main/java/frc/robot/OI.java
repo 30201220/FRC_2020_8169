@@ -7,29 +7,30 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.Catchball;
-import frc.robot.commands.Climbing;
+import frc.robot.commands.Auto;
+import frc.robot.commands.BallsTracking;
 import frc.robot.commands.ColorSensor;
-import frc.robot.commands.ShootBall;
-import frc.robot.commands.ShootSmallCheep;
-
-/**
+import frc.robot.commands.ShooAngleModify;
+import frc.robot.commands.Shoot;
+import frc.robot.commands.Shootball;
+/** 
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
   XboxController operatorController = new XboxController(RobotMap.OPERATOR_CONTROLLER);
   XboxController driverController = new XboxController(RobotMap.DRIVER_CONTROLLER);
-  Joystick dJoystick = new Joystick(RobotMap.DRIVER_CONTROLLER);
-  
-  Button dButtonA = new JoystickButton(this.driverController, RobotMap.BUTTON_A);
+
+  public Button dButtonA = new JoystickButton(this.driverController, RobotMap.BUTTON_A);
 	Button dButtonB = new JoystickButton(this.driverController, RobotMap.BUTTON_B);
 	Button dButtonX = new JoystickButton(this.driverController, RobotMap.BUTTON_X);
-	Button dButtonY = new JoystickButton(this.driverController, RobotMap.BUTTON_Y);
+  Button dButtonY = new JoystickButton(this.driverController, RobotMap.BUTTON_Y);
+  Button dButtonRB = new JoystickButton(this.driverController, RobotMap.BUTTON_RB);
+  Button dButtonLB = new JoystickButton(this.driverController, RobotMap.BUTTON_LB);
+  Button dButtonSTART = new JoystickButton(this.driverController, RobotMap.BUTTON_START);
   
   
 	Button oButtonA = new JoystickButton(this.operatorController, RobotMap.BUTTON_A);
@@ -39,11 +40,6 @@ public class OI {
   Button oButtonLB = new JoystickButton(this.operatorController, RobotMap.BUTTON_LB);
   Button oButtonRB = new JoystickButton(this.operatorController, RobotMap.BUTTON_RB);
   Button oButtonSTART = new JoystickButton(this.operatorController, RobotMap.BUTTON_START);
-  Button oButtonRIGHT = new JoystickButton(this.operatorController, RobotMap.BUTTON_RIGHT);
-  
-  public double getFlyRawAxis(int axis){
-    return this.dJoystick.getRawAxis(axis);
-  }
 
   public boolean getOperatorButton(int axis) {
 		return this.operatorController.getRawButton(axis);
@@ -59,21 +55,23 @@ public class OI {
 	
 	public double getDriverRawAxis(int axis) {
 		return this.driverController.getRawAxis(axis);
-	}
-	
-	public int getOperatorPOV(){
-		return this.operatorController.getPOV();
   }
 
-  
-  
-  public OI(){
-    this.oButtonRB.whenPressed(new ColorSensor());
-    this.oButtonSTART.whenPressed(new ShootBall());
-    this.dButtonX.whenPressed(new Climbing());
-    this.oButtonLB.whenPressed(new Catchball());
-    this.oButtonRIGHT.whenPressed(new ShootSmallCheep());
+  public int getDriverPOV(){
+    return this.driverController.getPOV();
   }
+
+  public int getOperatorPOV(){
+    return this.operatorController.getPOV();
+  }
+
+  public OI(){
+ //   this.dButtonRB.whenPressed(new BallsTracking());
+    this.dButtonSTART.whenPressed(new Shootball());
+    this.dButtonLB.whenPressed(new ColorSensor());
+//    this.dButtonA.whenPressed(new Auto());
+  }
+  //// CREATI
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.

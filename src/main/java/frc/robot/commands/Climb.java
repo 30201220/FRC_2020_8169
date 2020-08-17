@@ -11,28 +11,49 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-public class SeaUrchin extends Command {
-  public SeaUrchin() {
+public class Climb extends Command {
+  int a;
+  boolean oldState;
+  public Climb() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_shooter);
+    requires(Robot.m_climbing);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.m_climbing.setclimbcylinderdown();
+    a = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_RB)){
-      Robot.m_shooter.setMotorShooterSeaUrchin(1);
-    } else if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_LB)){
-      Robot.m_shooter.setMotorShooterSeaUrchin(-1);
-    }else{
-      Robot.m_shooter.setMotorShooterSeaUrchin(0);
+    if(a == 0){
+      if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_Y) == true){
+        Robot.m_climbing.setclimbcylinderup();
+        if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_Y) != oldState){
+          a = 1;
+        }
+      }
+    } else if(a == 1){
+      if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_Y) == true){
+        Robot.m_climbing.setclimbcylinderdown();
+        if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_Y) != oldState){
+          a = 0;
+        }
+      }
     }
 
+    oldState = Robot.m_oi.getDriverButton(RobotMap.BUTTON_Y);
+
+    if(Robot.m_oi.getOperatorPOV() == 0){
+      Robot.m_climbing.setClimbMotor(1);
+    }else if(Robot.m_oi.getOperatorPOV() == 180){
+      Robot.m_climbing.setClimbMotor(-1);
+    }else {
+      Robot.m_climbing.setClimbMotor(0);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

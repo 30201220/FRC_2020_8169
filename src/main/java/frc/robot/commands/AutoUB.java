@@ -9,36 +9,30 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 
-public class SeaUrchin extends Command {
-  public SeaUrchin() {
+public class AutoUB extends Command {
+  public AutoUB() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_shooter);
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.m_catchball.setcatchcylinderdown();
+    Robot.m_catchball.setMotorCatchBall(0.6);
+    Robot.m_shooter.setMotorShooterFly(0.9);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_RB)){
-      Robot.m_shooter.setMotorShooterSeaUrchin(1);
-    } else if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_LB)){
-      Robot.m_shooter.setMotorShooterSeaUrchin(-1);
-    }else{
-      Robot.m_shooter.setMotorShooterSeaUrchin(0);
-    }
-
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true

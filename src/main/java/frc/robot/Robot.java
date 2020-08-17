@@ -7,21 +7,20 @@
 
 package frc.robot;
 
-import javax.sound.sampled.AudioFileFormat;
+import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.Auto;
 import frc.robot.subsystems.CatchBall;
 import frc.robot.subsystems.Climbing;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.PDPCurrent;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Spinner;
-import edu.wpi.first.wpilibj.Compressor;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,19 +30,18 @@ import edu.wpi.first.wpilibj.Compressor;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static Climbing m_climbing = new Climbing();
-  public static DriveTrain m_drivetrain = new DriveTrain();
-  public static PDPCurrent m_PDPCurrent;
   public static CatchBall m_catchball = new CatchBall();
+  public static DriveTrain m_drivetrain = new DriveTrain();
   public static Shooter m_shooter = new Shooter();
-  public static OI m_oi;
   public static Spinner m_spinner = new Spinner();
+  public static Climbing m_climbing = new Climbing();
+  public static OI m_oi;
 
-
+  public static AHRS m_ahrs;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
-  Compressor compressor = new Compressor();
+  Compressor m_compressor = new Compressor();
 
   /**
    * This function is run when the robot is first started up and should be
@@ -51,14 +49,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    m_compressor.start();
+    m_ahrs = new AHRS(SPI.Port.kMXP); 
+    m_ahrs.reset();
     m_oi = new OI();
-    m_PDPCurrent = new PDPCurrent();
-    SmartDashboard.putData("Auto mode", this.m_chooser);
-   /* m_chooser.setDefaultOption("Default Auto", new Auto());
-    chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);*/
-
-    compressor.start();
+    m_spinner.doubleDOWN();
+    // chooser.addOption("My Auto", new MyAutoCommand());
+//    m_autonomousCommand = new Auto();
+    SmartDashboard.putData("Auto mode", m_chooser);
   }
 
   /**
@@ -109,10 +107,10 @@ public class Robot extends TimedRobot {
      * autonomousCommand = new ExampleCommand(); break; }
      */
 
-    //schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.start();
-    }
+    // schedule the autonomous command (example)
+//    if (m_autonomousCommand != null) {
+//      m_autonomousCommand.start();
+//    }
   }
 
   /**
@@ -129,9 +127,9 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
-    }
+//    if (m_autonomousCommand != null) {
+//      m_autonomousCommand.cancel();
+//    }
   }
 
   /**
@@ -148,5 +146,4 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
-
 }

@@ -26,13 +26,13 @@ public class ColorSensor extends Command {
   private final Color kGreenTarget = ColorMatch.makeColor(0.169, 0.597, 0.234);
   private final Color kRedTarget = ColorMatch.makeColor(0.586, 0.328, 0.085);
   private final Color kYellowTarget = ColorMatch.makeColor(0.344, 0.554, 0.101);
-  private String superColor;
+  private String targetColor;
   private int delay;
   private int circle;
-
+  private String colorString;
   public ColorSensor() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_spinner);
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
@@ -43,7 +43,7 @@ public class ColorSensor extends Command {
     colorMatcher.addColorMatch(kRedTarget);
     colorMatcher.addColorMatch(kYellowTarget);
     Robot.m_spinner.doubleUP();
-    superColor = null;
+    targetColor = null;
     delay = 0;
     circle = 0;
   }
@@ -52,7 +52,6 @@ public class ColorSensor extends Command {
   @Override
   protected void execute() {
     Color detectedColor = colorSensor.getColor();
-    String colorString;
     ColorMatchResult match = colorMatcher.matchClosestColor(detectedColor);
     if (match.color == kBlueTarget) {
       colorString = "Blue";
@@ -73,27 +72,27 @@ public class ColorSensor extends Command {
     if(Robot.m_oi.getOperatorRawAxis(RobotMap.RIGHT_TRIGGER) >= 0.9){
       Robot.m_spinner.doubleDOWN();
     }
-    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_RIGHT) == true){
+    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_RIGHT)){
       Robot.m_spinner.setSpinnerMotor(RobotMap.SPEED_MOTOR_SPINNER);
     }
     
-    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_X) == true){
+    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_X)){
       Robot.m_spinner.setSpinnerMotor(RobotMap.SPEED_MOTOR_SPINNER);
-      superColor = "Red";
+      targetColor = "Red";
     }
-    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_Y) == true){
+    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_Y)){
       Robot.m_spinner.setSpinnerMotor(RobotMap.SPEED_MOTOR_SPINNER);
-      superColor = "Green";
+      targetColor = "Green";
     }
-    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_B) == true){
+    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_B)){
       Robot.m_spinner.setSpinnerMotor(RobotMap.SPEED_MOTOR_SPINNER);
-      superColor = "Blue";
+      targetColor = "Blue";
     }
-    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_A) == true){
+    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_A)){
       Robot.m_spinner.setSpinnerMotor(RobotMap.SPEED_MOTOR_SPINNER);
-      superColor = "Yellow";
+      targetColor = "Yellow";
     }
-    if(colorString == superColor){
+    if(colorString == targetColor){
       delay += 1;
       if( delay >= 8){
         Robot.m_spinner.setSpinnerMotor(0);
@@ -104,7 +103,7 @@ public class ColorSensor extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_BACK) == true){
+    if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_BACK)){
       return true;
     }else{
       return false;

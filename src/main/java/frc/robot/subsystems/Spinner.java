@@ -7,17 +7,12 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import com.revrobotics.ColorMatch;
-import com.revrobotics.ColorMatchResult;
-import com.revrobotics.ColorSensorV3;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.RobotMap;
 
 /**
@@ -28,14 +23,14 @@ public class Spinner extends Subsystem {
   private DoubleSolenoid cylinderSpinner = new DoubleSolenoid(RobotMap.CYLINDER_SPINNER_1_ID, RobotMap.CYLINDER_SPINNER_2_ID);
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  public void doubleDOWN(){
+  public void doubleUP(){
     cylinderSpinner.set(Value.kReverse);
   }
   
@@ -43,7 +38,7 @@ public class Spinner extends Subsystem {
     cylinderSpinner.set(Value.kOff);
   }
   
-  public void doubleUP() {
+  public void doubleDOWN() {
     cylinderSpinner.set(Value.kForward);
   }
 

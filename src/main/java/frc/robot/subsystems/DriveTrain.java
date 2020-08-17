@@ -8,12 +8,11 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.commands.DriveControllerGeneral;
+import frc.robot.commands.DriveController;
 
 /**
  * Add your docs here.
@@ -29,16 +28,16 @@ public class DriveTrain extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    setDefaultCommand(new DriveControllerGeneral());
+    setDefaultCommand(new DriveController());
   }
-
+  
   public void setLeftMotors(final double speedl) {
-    motorLeft1.set(ControlMode.PercentOutput, -speedl);
-    motorLeft2.set(ControlMode.PercentOutput, -speedl);
+    motorLeft1.set(ControlMode.PercentOutput, speedl);
+    motorLeft2.set(ControlMode.PercentOutput, speedl);
   }
 
   public void setRightMotors(final double speedr) {
-    motorRight1.set(ControlMode.PercentOutput, speedr);
-    motorRight2.set(ControlMode.PercentOutput, speedr);
+    motorRight1.set(ControlMode.PercentOutput, -speedr);
+    motorRight2.set(ControlMode.PercentOutput, -speedr);
   }
 }
