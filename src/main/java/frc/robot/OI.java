@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -7,30 +7,11 @@
 
 package frc.robot;
 
-
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.MoveSequence;
-
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-
-  XboxController driverController = new XboxController(RobotMap.DRIVER_CONTROLLER);
-  XboxController operatorController = new XboxController(RobotMap.OPERATOR_CONTROLLER);
-  
-  Button xButton = new JoystickButton(driverController, RobotMap.BUTTON_X);
-
-  public double GetDriverRawAxis(int axis){
-    return driverController.getRawAxis(axis);
-  }
-
-  public OI() {
-   xButton.whenPressed(new MoveSequence());
-  }
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.
