@@ -28,6 +28,7 @@ public class ColorSensor extends Command {
   private final Color kYellowTarget = ColorMatch.makeColor(0.344, 0.554, 0.101);
   private String superColor;
   private int delay;
+  private int circle;
 
   public ColorSensor() {
     // Use requires() here to declare subsystem dependencies
@@ -44,6 +45,7 @@ public class ColorSensor extends Command {
     Robot.m_spinner.doubleUP();
     superColor = null;
     delay = 0;
+    circle = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -70,7 +72,10 @@ public class ColorSensor extends Command {
     SmartDashboard.putString("Detected Color", colorString);
     if(Robot.m_oi.getOperatorRawAxis(RobotMap.RIGHT_TRIGGER) >= 0.9){
       Robot.m_spinner.doubleDOWN();
-    } 
+    }
+    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_RIGHT) == true){
+      Robot.m_spinner.setSpinnerMotor(RobotMap.SPEED_MOTOR_SPINNER);
+    }
     
     if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_X) == true){
       Robot.m_spinner.setSpinnerMotor(RobotMap.SPEED_MOTOR_SPINNER);
@@ -89,7 +94,7 @@ public class ColorSensor extends Command {
       superColor = "Yellow";
     }
     if(colorString == superColor){
-      delay = delay + 1;
+      delay += 1;
       if( delay >= 8){
         Robot.m_spinner.setSpinnerMotor(0);
       }

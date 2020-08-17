@@ -23,8 +23,7 @@ public class Climbing extends Subsystem {
   private VictorSPX motorClimbing1 = new VictorSPX(RobotMap.MOTOR_CLIMB_1_ID);
   private VictorSPX motorClimbing2 = new VictorSPX(RobotMap.MOTOR_CLIMB_2_ID);
 
-  private Solenoid cylinderLeft = new Solenoid(RobotMap.CYLINDER_LEFT_ID);
-  private Solenoid cylinderRight = new Solenoid(RobotMap.CYLINDER_RIGHT_ID);
+  private Solenoid cylinder = new Solenoid(RobotMap.CYLINDER_ID);
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -41,13 +40,10 @@ public class Climbing extends Subsystem {
   }
   
   public void setclimbcylinder(){
-    cylinderLeft.set(true);
-    cylinderRight.set(true);
+    cylinder.set(true);
   }
 
   public void singleIdle(){
-    cylinderLeft.set(false);
-    cylinderRight.set(false);  
+    cylinder.set(false);
   }
-
 }

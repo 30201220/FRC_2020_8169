@@ -28,14 +28,17 @@ public class DriveControllerGeneral extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double speedr;
-    double speedl;
+    
+    double speedr = -Robot.m_oi.getDriverRawAxis(RobotMap.LEFT_STICK_Y);
+    double speedl = -Robot.m_oi.getDriverRawAxis(RobotMap.RIGHT_STICK_Y);
 
-    double triggerVal = Robot.m_oi.getDriverRawAxis(RobotMap.RIGHT_TRIGGER) - Robot.m_oi.getDriverRawAxis(RobotMap.LEFT_TRIGGER);
-    double stick = Utilities.scale(Robot.m_oi.getDriverRawAxis(RobotMap.LEFT_STICK_X), RobotMap.TURNING_RATE);
+    //double triggerVal = Robot.m_oi.getDriverRawAxis(RobotMap.LEFT_STICK_Y);
+    //double stick = Utilities.scale(Robot.m_oi.getFlyRawAxis(RobotMap.LEFT_STICK_Z), RobotMap.TURNING_RATE);
+    //double triggerVal = Robot.m_oi.getDriverRawAxis(RobotMap.RIGHT_TRIGGER) - Robot.m_oi.getDriverRawAxis(RobotMap.LEFT_TRIGGER);
+    //double stick = Utilities.scale(Robot.m_oi.getDriverRawAxis(RobotMap.LEFT_STICK_X), RobotMap.TURNING_RATE);
 
-    speedl = (triggerVal + stick);
-    speedr = (triggerVal - stick);
+    //double speedl = (triggerVal - stick);
+    //double speedr = (triggerVal + stick);
 
     Robot.m_drivetrain.setLeftMotors(speedl*RobotMap.nSpeed);
     Robot.m_drivetrain.setRightMotors(speedr*RobotMap.nSpeed);

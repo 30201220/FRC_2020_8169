@@ -18,7 +18,7 @@ public class RobotMap {
   public static int PDP_ID = 0;
   
   //sShooter
-  public static int MOTOR_SHOOTER_1 = 4;//4
+  public static int MOTOR_SHOOTER_1 = 11;//4
   public static int MOTOR_SHOOTER_2 = 10;
 
   //sCatchBall
@@ -30,10 +30,10 @@ public class RobotMap {
 
   
   //sDriveTrain
-  public static final int MOTOR_LEFT_1_ID = 2;//2
-	public static final int MOTOR_LEFT_2_ID = 3;//3
-	public static final int MOTOR_RIGHT_1_ID = 0;//0
-  public static final int MOTOR_RIGHT_2_ID = 1;//1
+  public static final int MOTOR_LEFT_1_ID = 1;//2
+	public static final int MOTOR_LEFT_2_ID = 2;//3
+	public static final int MOTOR_RIGHT_1_ID = 3;//0
+  public static final int MOTOR_RIGHT_2_ID = 4;//1
   
   //Xbox
   public static final int DRIVER_CONTROLLER = 1;
@@ -69,17 +69,22 @@ public class RobotMap {
 
   public static double nSpeed = 1;
 
-  public static double SHOOTERMOTOR_DELAY = 2;
+  public static double SHOOTERMOTOR_DELAY = 1.5;
 
-
-  public static int CYLINDER_LEFT_ID = 0;
-  public static int CYLINDER_RIGHT_ID = 2;
+  public static int CYLINDER_ID = 2;
 
   public static int MOTOR_SPINNER_1_ID = 6;//6
   public static int CYLINDER_SPINNER_1_ID = 4;
   public static int CYLINDER_SPINNER_2_ID = 5;
 
   public static double SPEED_MOTOR_SPINNER = 0.5;
+
+  public static int LEFT_STICK_Z  = 2;
+
+  public static int CYLINDER_CATCH_ID = 0;
+
+  public static int BUTTON_RIGHT = 10;
+
 
 
 
