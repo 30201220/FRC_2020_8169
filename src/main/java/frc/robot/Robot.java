@@ -1,9 +1,16 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------*/
+/*            88888888888888888888   1111111111111        66666666666666666666  99999999999999999999  */
+/*           88888888888888888888   1111111111111        66666666666666666666  99999999999999999999   */
+/*          888               88             111        666                   999               99    */
+/*         888               88             111        666                   999               99     */
+/*        888               88             111        666                   999               99      */
+/*       88888888888888888888             111        66666666666666666666  99999999999999999999       */
+/*      888               88             111        666               66                    99        */
+/*     888               88             111        666               66                    99         */
+/*    888               88             111        666               66                    99          */
+/*   88888888888888888888  11111111111111111111  66666666666666666666  99999999999999999999           */
+/*  88888888888888888888  11111111111111111111  66666666666666666666  99999999999999999999            */
+/*----------------------------------------------------------------------------------------------------*/
 
 package frc.robot;
 
@@ -16,66 +23,36 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.CatchBall;
-import frc.robot.subsystems.Climbing;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Spinner;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.gradle file in the
- * project.
- */
+import frc.robot.commands.UBCommand;
+import frc.robot.commands.auto.Auto;
+import frc.robot.subsystems.*;
+
 public class Robot extends TimedRobot {
-  public static CatchBall m_catchball = new CatchBall();
+  public static Intake m_intake = new Intake();
   public static DriveTrain m_drivetrain = new DriveTrain();
   public static Shooter m_shooter = new Shooter();
   public static Spinner m_spinner = new Spinner();
   public static Climbing m_climbing = new Climbing();
-  public static OI m_oi;
+  public static OI m_oi = new OI();
+  public static AHRS m_ahrs = new AHRS(SPI.Port.kMXP);
+  public static Compressor m_compressor = new Compressor();
 
-  public static AHRS m_ahrs;
-
+  Command UBcommand = new UBCommand();
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
-  Compressor m_compressor = new Compressor();
 
-  /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
-   */
   @Override
   public void robotInit() {
-    m_compressor.start();
-    m_ahrs = new AHRS(SPI.Port.kMXP); 
-    m_ahrs.reset();
-    m_oi = new OI();
-    m_spinner.doubleDOWN();
-    // chooser.addOption("My Auto", new MyAutoCommand());
-//    m_autonomousCommand = new Auto();
+    UBcommand.start();
+    m_chooser.addOption("My Auto", new Auto());
     SmartDashboard.putData("Auto mode", m_chooser);
   }
 
-  /**
-   * This function is called every robot packet, no matter the mode. Use
-   * this for items like diagnostics that you want ran during disabled,
-   * autonomous, teleoperated and test.
-   *
-   * <p>This runs after the mode specific periodic functions, but before
-   * LiveWindow and SmartDashboard integrated updating.
-   */
   @Override
   public void robotPeriodic() {
   }
 
-  /**
-   * This function is called once each time the robot enters Disabled mode.
-   * You can use it to reset any subsystem information you want to clear when
-   * the robot is disabled.
-   */
   @Override
   public void disabledInit() {
   }
@@ -85,17 +62,6 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
   }
 
-  /**
-   * This autonomous (along with the chooser code above) shows how to select
-   * between different autonomous modes using the dashboard. The sendable
-   * chooser code works with the Java SmartDashboard. If you prefer the
-   * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-   * getString code to get the auto name from the text box below the Gyro
-   *
-   * <p>You can add additional auto modes by adding additional commands to the
-   * chooser code above (like the commented example) or additional comparisons
-   * to the switch structure below with additional strings & commands.
-   */
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_chooser.getSelected();
@@ -107,15 +73,12 @@ public class Robot extends TimedRobot {
      * autonomousCommand = new ExampleCommand(); break; }
      */
 
-    // schedule the autonomous command (example)
-//    if (m_autonomousCommand != null) {
-//      m_autonomousCommand.start();
-//    }
+
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.start();
+    }
   }
 
-  /**
-   * This function is called periodically during autonomous.
-   */
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
@@ -123,27 +86,19 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
-//    if (m_autonomousCommand != null) {
-//      m_autonomousCommand.cancel();
-//    }
+
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.cancel();
+    }
   }
 
-  /**
-   * This function is called periodically during operator control.
-   */
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
   }
 
-  /**
-   * This function is called periodically during test mode.
-   */
   @Override
   public void testPeriodic() {
   }
 }
+

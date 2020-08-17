@@ -11,25 +11,39 @@
 /*   88888888888888888888  11111111111111111111  66666666666666666666  99999999999999999999           */
 /*  88888888888888888888  11111111111111111111  66666666666666666666  99999999999999999999            */
 /*----------------------------------------------------------------------------------------------------*/
-package frc.robot;
 
-import edu.wpi.first.wpilibj.RobotBase;
+package frc.robot.subsystems;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
+import frc.robot.commands.ballcatch.ballCatch;
 
 /**
- * Do NOT add any static variables to this class, or any initialization at all.
- * Unless you know what you are doing, do not modify this file except to
- * change the parameter class to the startRobot call.
+ * Add your docs here.
  */
-public final class Main {
-  private Main() {
+public class Intake extends Subsystem {
+  private CANSparkMax motorIntake = new CANSparkMax(RobotMap.MOTOR_CATCH_1_ID, MotorType.kBrushless);
+  private Solenoid cylinderCatchBall = new Solenoid(RobotMap.CYLINDER_CATCH_ID);
+  // Put methods for controlling this subsystem
+  // here. Call these from Commands.
+
+  @Override
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    setDefaultCommand(new ballCatch());
+  }
+  public void setMotorIntake(final double speed){
+    motorIntake.set(-speed * RobotMap.nIntakeSpeed);
   }
 
-  /**
-   * Main initialization function. Do not perform any initialization here.
-   *
-   * <p>If you change your main robot class, change the parameter type.
-   */
-  public static void main(String... args) {
-    RobotBase.startRobot(Robot::new);
+  public void setcatchcylinderdown(){
+    cylinderCatchBall.set(false);
+  }
+  public void setcatchcylinderup(){
+    cylinderCatchBall.set(true);
   }
 }

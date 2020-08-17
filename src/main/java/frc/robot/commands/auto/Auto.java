@@ -11,25 +11,35 @@
 /*   88888888888888888888  11111111111111111111  66666666666666666666  99999999999999999999           */
 /*  88888888888888888888  11111111111111111111  66666666666666666666  99999999999999999999            */
 /*----------------------------------------------------------------------------------------------------*/
-package frc.robot;
+package frc.robot.commands.auto;
 
-import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- * Do NOT add any static variables to this class, or any initialization at all.
- * Unless you know what you are doing, do not modify this file except to
- * change the parameter class to the startRobot call.
- */
-public final class Main {
-  private Main() {
-  }
-
+public class Auto extends CommandGroup {
   /**
-   * Main initialization function. Do not perform any initialization here.
-   *
-   * <p>If you change your main robot class, change the parameter type.
+   * Add your docs here.
    */
-  public static void main(String... args) {
-    RobotBase.startRobot(Robot::new);
+  public Auto() {
+    addSequential(new autoUB());
+    addSequential(new autoLimeMove(1,0.6));
+    addSequential(new autoRotate());
+    addSequential(new autoAngleModify());
+    addSequential(new autoShoot());
+    // Add Commands here:
+    // e.g. addSequential(new Command1());
+    // addSequential(new Command2());
+    // these will run in order.
+
+    // To run multiple commands at the same time,
+    // use addParallel()
+    // e.g. addParallel(new Command1());
+    // addSequential(new Command2());
+    // Command1 and Command2 will run in parallel.
+
+    // A command group will require all of the subsystems that each member
+    // would require.
+    // e.g. if Command1 requires chassis, and Command2 requires arm,
+    // a CommandGroup containing them would require both the chassis and the
+    // arm.
   }
 }

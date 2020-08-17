@@ -11,25 +11,43 @@
 /*   88888888888888888888  11111111111111111111  66666666666666666666  99999999999999999999           */
 /*  88888888888888888888  11111111111111111111  66666666666666666666  99999999999999999999            */
 /*----------------------------------------------------------------------------------------------------*/
-package frc.robot;
+package frc.robot.commands.turntable;
 
-import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
-/**
- * Do NOT add any static variables to this class, or any initialization at all.
- * Unless you know what you are doing, do not modify this file except to
- * change the parameter class to the startRobot call.
- */
-public final class Main {
-  private Main() {
+public class spinnerUB extends Command {
+  public spinnerUB() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
-  /**
-   * Main initialization function. Do not perform any initialization here.
-   *
-   * <p>If you change your main robot class, change the parameter type.
-   */
-  public static void main(String... args) {
-    RobotBase.startRobot(Robot::new);
+  // Called just before this Command runs the first time
+  @Override
+  protected void initialize() {
+    Robot.m_spinner.doubleDOWN();
+  }
+
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
+  }
+
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return false;
+  }
+
+  // Called once after isFinished returns true
+  @Override
+  protected void end() {
+    Robot.m_spinner.doubleDOWN();
+  }
+
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
   }
 }

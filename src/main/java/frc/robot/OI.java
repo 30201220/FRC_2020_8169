@@ -1,37 +1,38 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
+/*----------------------------------------------------------------------------------------------------*/
+/*            88888888888888888888   1111111111111        66666666666666666666  99999999999999999999  */
+/*           88888888888888888888   1111111111111        66666666666666666666  99999999999999999999   */
+/*          888               88             111        666                   999               99    */
+/*         888               88             111        666                   999               99     */
+/*        888               88             111        666                   999               99      */
+/*       88888888888888888888             111        66666666666666666666  99999999999999999999       */
+/*      888               88             111        666               66                    99        */
+/*     888               88             111        666               66                    99         */
+/*    888               88             111        666               66                    99          */
+/*   88888888888888888888  11111111111111111111  66666666666666666666  99999999999999999999           */
+/*  88888888888888888888  11111111111111111111  66666666666666666666  99999999999999999999            */
+/*----------------------------------------------------------------------------------------------------*/
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.Auto;
-import frc.robot.commands.BallsTracking;
-import frc.robot.commands.ColorSensor;
-import frc.robot.commands.ShooAngleModify;
-import frc.robot.commands.Shoot;
-import frc.robot.commands.Shootball;
-/** 
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
- */
+import frc.robot.commands.ballcatch.ballTracking;
+import frc.robot.commands.ballshoot.NormalShoot;
+import frc.robot.commands.ballshoot.shootEephus;
+import frc.robot.commands.turntable.spinnerUB;
+
 public class OI {
   XboxController operatorController = new XboxController(RobotMap.OPERATOR_CONTROLLER);
   XboxController driverController = new XboxController(RobotMap.DRIVER_CONTROLLER);
 
-  public Button dButtonA = new JoystickButton(this.driverController, RobotMap.BUTTON_A);
+  Button dButtonA = new JoystickButton(this.driverController, RobotMap.BUTTON_A);
 	Button dButtonB = new JoystickButton(this.driverController, RobotMap.BUTTON_B);
 	Button dButtonX = new JoystickButton(this.driverController, RobotMap.BUTTON_X);
   Button dButtonY = new JoystickButton(this.driverController, RobotMap.BUTTON_Y);
   Button dButtonRB = new JoystickButton(this.driverController, RobotMap.BUTTON_RB);
   Button dButtonLB = new JoystickButton(this.driverController, RobotMap.BUTTON_LB);
   Button dButtonSTART = new JoystickButton(this.driverController, RobotMap.BUTTON_START);
-  
+  Button dButtonLEFT = new JoystickButton(this.driverController, RobotMap.BUTTON_LEFT);
   
 	Button oButtonA = new JoystickButton(this.operatorController, RobotMap.BUTTON_A);
 	Button oButtonB = new JoystickButton(this.operatorController, RobotMap.BUTTON_B);
@@ -40,19 +41,20 @@ public class OI {
   Button oButtonLB = new JoystickButton(this.operatorController, RobotMap.BUTTON_LB);
   Button oButtonRB = new JoystickButton(this.operatorController, RobotMap.BUTTON_RB);
   Button oButtonSTART = new JoystickButton(this.operatorController, RobotMap.BUTTON_START);
+  Button oButtonBACK = new JoystickButton(this.operatorController, RobotMap.BUTTON_BACK);
 
   public boolean getOperatorButton(int axis) {
 		return this.operatorController.getRawButton(axis);
 	}
-	
+
 	public boolean getDriverButton(int axis) {
 		return this.driverController.getRawButton(axis);
 	}
-	
+
 	public double getOperatorRawAxis(int axis) {
 		return this.operatorController.getRawAxis(axis);
-	}
-	
+  }
+
 	public double getDriverRawAxis(int axis) {
 		return this.driverController.getRawAxis(axis);
   }
@@ -66,10 +68,10 @@ public class OI {
   }
 
   public OI(){
- //   this.dButtonRB.whenPressed(new BallsTracking());
-    this.dButtonSTART.whenPressed(new Shootball());
-    this.dButtonLB.whenPressed(new ColorSensor());
-//    this.dButtonA.whenPressed(new Auto());
+    this.dButtonSTART.whenPressed(new NormalShoot());
+    this.dButtonRB.whenPressed(new ballTracking());
+    this.dButtonLEFT.whenPressed(new shootEephus());
+    this.dButtonLB.whenPressed(new spinnerUB());
   }
   //// CREATI
   //// CREATING BUTTONS

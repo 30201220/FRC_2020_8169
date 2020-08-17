@@ -11,25 +11,50 @@
 /*   88888888888888888888  11111111111111111111  66666666666666666666  99999999999999999999           */
 /*  88888888888888888888  11111111111111111111  66666666666666666666  99999999999999999999            */
 /*----------------------------------------------------------------------------------------------------*/
-package frc.robot;
 
-import edu.wpi.first.wpilibj.RobotBase;
+package frc.robot.commands.ballshoot;
 
-/**
- * Do NOT add any static variables to this class, or any initialization at all.
- * Unless you know what you are doing, do not modify this file except to
- * change the parameter class to the startRobot call.
- */
-public final class Main {
-  private Main() {
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
+import frc.robot.RobotMap;
+
+public class seaUrchin extends Command {
+  public seaUrchin() {
+    // Use requires() here to declare subsystem dependencies
+    requires(Robot.m_shooter);
   }
 
-  /**
-   * Main initialization function. Do not perform any initialization here.
-   *
-   * <p>If you change your main robot class, change the parameter type.
-   */
-  public static void main(String... args) {
-    RobotBase.startRobot(Robot::new);
+  // Called just before this Command runs the first time
+  @Override
+  protected void initialize() {
+  }
+
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
+    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_RB)){
+      Robot.m_shooter.setMotorShooterSeaUrchin(1);
+    } else if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_LB)){
+      Robot.m_shooter.setMotorShooterSeaUrchin(-1);
+    }else{
+      Robot.m_shooter.setMotorShooterSeaUrchin(0);
+    }
+  }
+
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+    return false;
+  }
+
+  // Called once after isFinished returns true
+  @Override
+  protected void end() {
+  }
+
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
   }
 }
