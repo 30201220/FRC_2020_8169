@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-public class ShootBall extends Command {
+public class ShootSmallCheep extends Command {
   double x,y,area,Arcw,Ircw;
   double Aerror,Ierror;
   double derivative;
@@ -25,7 +25,7 @@ public class ShootBall extends Command {
   int integral, previous_error = 0;
   boolean modify;
   int modify1;
-  public ShootBall() {
+  public ShootSmallCheep() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.m_shooter);
   }
@@ -33,7 +33,6 @@ public class ShootBall extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    setTimeout(2);
     modify1 = 0;
   }
 
@@ -73,13 +72,11 @@ public class ShootBall extends Command {
       Robot.m_drivetrain.setRightMotors(-Ircw/20.5);
     }*/
 
-    Robot.m_shooter.setMotorShooter2(0.8);
-    if(isTimedOut()){
-      if(Robot.m_oi.getOperatorRawAxis(RobotMap.LEFT_TRIGGER) >= 0.9){
-        Robot.m_shooter.setMotorShooter1(1);
-      } else{
-        Robot.m_shooter.setMotorShooter1(0);
-      }
+    Robot.m_shooter.setMotorShooter2(0.3);
+    if(Robot.m_oi.getOperatorRawAxis(RobotMap.LEFT_TRIGGER) >= 0.9){
+      Robot.m_shooter.setMotorShooter1(1);
+    } else{
+      Robot.m_shooter.setMotorShooter1(0);
     }
   }
 

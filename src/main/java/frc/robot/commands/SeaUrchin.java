@@ -8,16 +8,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.Utilities;
 
-public class DriveControllerGeneral extends Command {
-
-  public DriveControllerGeneral() {
+public class SeaUrchin extends Command {
+  public SeaUrchin() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_drivetrain);
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
@@ -28,22 +25,11 @@ public class DriveControllerGeneral extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
-    //double speedr = -Robot.m_oi.getDriverRawAxis(RobotMap.LEFT_STICK_Y);
-    //double speedl = -Robot.m_oi.getDriverRawAxis(RobotMap.RIGHT_STICK_Y);
-    //double triggerVal = Robot.m_oi.getDriverRawAxis(RobotMap.RIGHT_TRIGGER) - Robot.m_oi.getDriverRawAxis(RobotMap.LEFT_TRIGGER);
-    //double stick = Utilities.scale(Robot.m_oi.getDriverRawAxis(RobotMap.LEFT_STICK_X), RobotMap.TURNING_RATE);
-    double triggerVal = Robot.m_oi.getFlyRawAxis(RobotMap.LEFT_STICK_Y);
-    double stick = Utilities.scale(Robot.m_oi.getFlyRawAxis(RobotMap.LEFT_STICK_Z), RobotMap.TURNING_RATE);
-
-    double speedl = (triggerVal - stick);
-    double speedr = (triggerVal + stick);
-
-    Robot.m_drivetrain.setLeftMotors(speedl*RobotMap.nSpeed);
-    Robot.m_drivetrain.setRightMotors(speedr*RobotMap.nSpeed);
-
-    SmartDashboard.putNumber("speedl", speedl);
-    SmartDashboard.putNumber("speedr", speedr);
+    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_LEFT) == true){
+      Robot.m_shooter.setMotorShooter3(1);
+    }else{
+      Robot.m_shooter.setMotorShooter3(0);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -61,7 +47,5 @@ public class DriveControllerGeneral extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.m_drivetrain.setLeftMotors(0);
-    Robot.m_drivetrain.setRightMotors(0);
   }
 }

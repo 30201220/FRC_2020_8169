@@ -19,6 +19,7 @@ import frc.robot.RobotMap;
 public class Shooter extends Subsystem {
   private VictorSPX motorshooter1 = new VictorSPX(RobotMap.MOTOR_SHOOTER_1); 
   private VictorSPX motorshooter2 = new VictorSPX(RobotMap.MOTOR_SHOOTER_2);
+  private VictorSPX motorshooter3 = new VictorSPX(RobotMap.MOTOR_SHOOTER_3);
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -32,5 +33,8 @@ public class Shooter extends Subsystem {
   }
   public void setMotorShooter2(double speed2){
     motorshooter2.set(ControlMode.PercentOutput,-speed2);
+  }
+  public void setMotorShooter3(double speed3){
+    motorshooter3.set(ControlMode.PercentOutput,speed3);
   }
 }

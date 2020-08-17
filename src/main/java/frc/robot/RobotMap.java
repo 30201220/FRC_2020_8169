@@ -85,6 +85,10 @@ public class RobotMap {
 
   public static int BUTTON_RIGHT = 10;
 
+  public static int MOTOR_SHOOTER_3 = 11;
+
+  public static int BUTTON_LEFT = 9;
+
 
 
 

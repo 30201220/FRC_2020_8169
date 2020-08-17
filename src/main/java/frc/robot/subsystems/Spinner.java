@@ -26,8 +26,6 @@ import frc.robot.RobotMap;
 public class Spinner extends Subsystem {
   private VictorSPX motorSpinner = new VictorSPX(RobotMap.MOTOR_SPINNER_1_ID); 
   private DoubleSolenoid cylinderSpinner = new DoubleSolenoid(RobotMap.CYLINDER_SPINNER_1_ID, RobotMap.CYLINDER_SPINNER_2_ID);
-
-  
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   

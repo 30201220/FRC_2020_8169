@@ -26,12 +26,11 @@ public class UBClimb extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-  if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_Y) == true){
-    Robot.m_climbing.setClimbMotor(-1);
-  }else{
-    Robot.m_climbing.setClimbMotor(0);
-  }
-
+    if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_Y) == true){
+      Robot.m_climbing.setClimbMotor(-1);
+    }else{
+      Robot.m_climbing.setClimbMotor(0);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

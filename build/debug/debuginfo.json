@@ -19,5 +19,12 @@
     "debugfile": "frcJava_roborio.debugconfig",
     "project": "FRC_0220_8169_2020 -",
     "language": "java"
+  },
+  {
+    "artifact": "frcJava (in project FRC_0224_8169_2020 - -)",
+    "target": "roborio",
+    "debugfile": "frcJava_roborio.debugconfig",
+    "project": "FRC_0224_8169_2020 - -",
+    "language": "java"
   }
 ]

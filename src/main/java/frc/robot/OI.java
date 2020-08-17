@@ -15,6 +15,7 @@ import frc.robot.commands.Catchball;
 import frc.robot.commands.Climbing;
 import frc.robot.commands.ColorSensor;
 import frc.robot.commands.ShootBall;
+import frc.robot.commands.ShootSmallCheep;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -38,6 +39,7 @@ public class OI {
   Button oButtonLB = new JoystickButton(this.operatorController, RobotMap.BUTTON_LB);
   Button oButtonRB = new JoystickButton(this.operatorController, RobotMap.BUTTON_RB);
   Button oButtonSTART = new JoystickButton(this.operatorController, RobotMap.BUTTON_START);
+  Button oButtonRIGHT = new JoystickButton(this.operatorController, RobotMap.BUTTON_RIGHT);
   
   public double getFlyRawAxis(int axis){
     return this.dJoystick.getRawAxis(axis);
@@ -70,6 +72,7 @@ public class OI {
     this.oButtonSTART.whenPressed(new ShootBall());
     this.dButtonX.whenPressed(new Climbing());
     this.oButtonLB.whenPressed(new Catchball());
+    this.oButtonRIGHT.whenPressed(new ShootSmallCheep());
   }
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
