@@ -27,18 +27,18 @@ public class Catchball extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double speed = 1;
-    Robot.m_catchball.setMotorCatchBall(speed);
+    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_LB) == true){
+      Robot.m_catchball.setMotorCatchBall(1);
+    } else{
+      Robot.m_catchball.setMotorCatchBall(0);
+    }
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-  if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_Y) == false){
-    return true;
-  }else{
     return false;
-  }
   }  
   
 

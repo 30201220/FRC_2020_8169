@@ -21,6 +21,9 @@ import frc.robot.subsystems.Climbing;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.PDPCurrent;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Spinner;
+import edu.wpi.first.wpilibj.Compressor;
+
 
 
 /**
@@ -37,9 +40,12 @@ public class Robot extends TimedRobot {
   public static CatchBall m_catchball = new CatchBall();
   public static Shooter m_shooter = new Shooter();
   public static OI m_oi;
+  public static Spinner m_spinner = new Spinner();
+
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+  Compressor compressor = new Compressor();
 
   /**
    * This function is run when the robot is first started up and should be
@@ -53,6 +59,8 @@ public class Robot extends TimedRobot {
     /*m_chooser.setDefaultOption("Default Auto", new Auto());
      chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);*/
+
+    compressor.start();
   }
 
   /**

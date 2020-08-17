@@ -31,11 +31,11 @@ public class DriveControllerGeneral extends Command {
     double speedr;
     double speedl;
 
-    double triggerVal = Robot.m_oi.getDriverRawAxis(RobotMap.LEFT_TRIGGER) - Robot.m_oi.getDriverRawAxis(RobotMap.RIGHT_TRIGGER);
+    double triggerVal = Robot.m_oi.getDriverRawAxis(RobotMap.RIGHT_TRIGGER) - Robot.m_oi.getDriverRawAxis(RobotMap.LEFT_TRIGGER);
     double stick = Utilities.scale(Robot.m_oi.getDriverRawAxis(RobotMap.LEFT_STICK_X), RobotMap.TURNING_RATE);
 
-    speedl = (triggerVal - stick);
-    speedr = (triggerVal + stick);
+    speedl = (triggerVal + stick);
+    speedr = (triggerVal - stick);
 
     Robot.m_drivetrain.setLeftMotors(speedl*RobotMap.nSpeed);
     Robot.m_drivetrain.setRightMotors(speedr*RobotMap.nSpeed);

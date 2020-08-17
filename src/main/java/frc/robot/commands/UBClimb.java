@@ -11,47 +11,39 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-public class Shootball extends Command {
-  public Shootball() {
+public class UBClimb extends Command {
+  public UBClimb() {
+
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_shooter);
+     requires(Robot.m_climbing);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    setTimeout(RobotMap.SHOOTERMOTOR_DELAY);
-    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_shooter.setMotorShooter2(0.9);
-    if((isTimedOut()) == true){
-      if(Robot.m_oi.getOperatorRawAxis(RobotMap.LEFT_TRIGGER) >= 0.9){
-        Robot.m_shooter.setMotorShooter1(1);
-      } else{
-        Robot.m_shooter.setMotorShooter1(0);
-      }
-    }
+  if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_Y) == true){
+    Robot.m_climbing.setClimbMotor(-1);
+  }else{
+    Robot.m_climbing.setClimbMotor(0);
+  }
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_BACK) == true){
-      return true;
-    }else{
       return false;
-    }
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_shooter.setMotorShooter1(0);
-    Robot.m_shooter.setMotorShooter2(0);
+    Robot.m_climbing.setClimbMotor(0);
   }
 
   // Called when another command which requires one or more of the same

@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.Catchball;
 import frc.robot.commands.Climbing;
+import frc.robot.commands.ColorSensor;
 import frc.robot.commands.Shootball;
+import frc.robot.commands.Climbing;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -26,13 +28,17 @@ public class OI {
 	Button dButtonB = new JoystickButton(this.driverController, RobotMap.BUTTON_B);
 	Button dButtonX = new JoystickButton(this.driverController, RobotMap.BUTTON_X);
 	Button dButtonY = new JoystickButton(this.driverController, RobotMap.BUTTON_Y);
-	
+  
+  
 	Button oButtonA = new JoystickButton(this.operatorController, RobotMap.BUTTON_A);
 	Button oButtonB = new JoystickButton(this.operatorController, RobotMap.BUTTON_B);
 	Button oButtonY = new JoystickButton(this.operatorController, RobotMap.BUTTON_Y);
 	Button oButtonX = new JoystickButton(this.operatorController, RobotMap.BUTTON_X);
-
+  Button oButtonLB = new JoystickButton(this.operatorController, RobotMap.BUTTON_LB);
+  Button oButtonRB = new JoystickButton(this.operatorController, RobotMap.BUTTON_RB);
+  Button oButtonSTART = new JoystickButton(this.operatorController, RobotMap.BUTTON_START);
   
+
   public boolean getOperatorButton(int axis) {
 		return this.operatorController.getRawButton(axis);
 	}
@@ -54,9 +60,10 @@ public class OI {
   }
   
   public OI(){
-    //this.oButtonA.whenPressed(new Climbing());
-    this.oButtonY.whenPressed(new Catchball());
-    this.oButtonX.whenPressed(new Shootball());
+    this.oButtonRB.whenPressed(new ColorSensor());
+    this.oButtonSTART.whenPressed(new Shootball());
+    this.dButtonX.whenPressed(new Climbing());
+
   }
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a

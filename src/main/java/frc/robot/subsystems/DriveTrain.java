@@ -33,12 +33,12 @@ public class DriveTrain extends Subsystem {
   }
 
   public void setLeftMotors(final double speedl) {
-    motorLeft1.set(ControlMode.PercentOutput, -speedl);
-    motorLeft2.set(ControlMode.PercentOutput, -speedl);
+    motorLeft1.set(ControlMode.PercentOutput, speedl);
+    motorLeft2.set(ControlMode.PercentOutput, speedl);
   }
 
   public void setRightMotors(final double speedr) {
-    motorRight1.set(ControlMode.PercentOutput, speedr);
-    motorRight2.set(ControlMode.PercentOutput, speedr);
+    motorRight1.set(ControlMode.PercentOutput, -speedr);
+    motorRight2.set(ControlMode.PercentOutput, -speedr);
   }
 }

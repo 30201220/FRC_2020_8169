@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import frc.robot.commands.Catchball;
 
 /**
  * Add your docs here.
@@ -24,7 +25,7 @@ public class CatchBall extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    //setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new Catchball());
   }
   public void setMotorCatchBall(double speed){
     MotorCatchBall.set(ControlMode.PercentOutput,-speed);
