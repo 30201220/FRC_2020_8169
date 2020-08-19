@@ -40,13 +40,19 @@ public class Robot extends TimedRobot {
   public static AHRS m_ahrs = new AHRS(SPI.Port.kMXP);
   public static Compressor m_compressor = new Compressor();
 
+  public static String sControlMode;
+
   Command UBcommand = new UBCommand();
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+  SendableChooser<String> m_controlModeChooser = new SendableChooser<>();
 
   @Override
   public void robotInit() {
     UBcommand.start();
+    m_controlModeChooser.addOption("Tank Mode", "tankMode");
+    m_controlModeChooser.addOption("Default Mode", "defaultMode");
+    SmartDashboard.putData("Control Mode", m_controlModeChooser);
     //m_chooser.addOption("My Auto", new Auto());
     //m_chooser.addOption("Default Auto", null);
     SmartDashboard.putData("Auto mode", m_chooser);
@@ -96,7 +102,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-
+    sControlMode = SmartDashboard.getString("Control Mode", "defaultMode");
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

@@ -70,6 +70,7 @@ public class shootEephus extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.m_shooter.setMotorShooterFly(0);
   }
   
   public void PIDAngle(){
