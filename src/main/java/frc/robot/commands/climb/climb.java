@@ -29,21 +29,13 @@ public class climb extends Command {
   @Override
   protected void initialize() {
     Robot.m_climbing.setclimbcylinderdown();
-    oldState = false;
     a = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Robot.m_oi.trueFalseSwitch(RobotMap.BUTTON_A, oldState)){
-      Robot.m_climbing.setclimbcylinderdown();
-    } else{
-      Robot.m_climbing.setclimbcylinderup();
-    }
-    oldState = Robot.m_oi.getDriverButton(RobotMap.BUTTON_A);
-    
-    /*if(a == false){
+    if(a == false){
       if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_A) == true){
         Robot.m_climbing.setclimbcylinderup();
         if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_A) != oldState){
@@ -58,7 +50,7 @@ public class climb extends Command {
         }
       }
     }
-    oldState = Robot.m_oi.getDriverButton(RobotMap.BUTTON_A);*/
+    oldState = Robot.m_oi.getDriverButton(RobotMap.BUTTON_A);
 
     if(Robot.m_oi.getOperatorPOV() == 180){
       Robot.m_climbing.setClimbMotor(1);//up

@@ -19,9 +19,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.commands.carcontrol.*;
+import frc.robot.commands.carcontrol.driveControl;
 
 public class DriveTrain extends Subsystem {
   private final TalonSRX motorLeft1 = new TalonSRX(RobotMap.MOTOR_LEFT_1_ID);
@@ -31,17 +30,7 @@ public class DriveTrain extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    switch (Robot.sControlMode) {
-      case "tankMode":
-        setDefaultCommand(new tankControl());
-        break;
-      case "defaultMode":
-        setDefaultCommand(new driveControl());
-        break;
-      default:
-        break;
-    }
-    
+    setDefaultCommand(new driveControl());
   }
   
   public void setLeftMotors(final double speedl) {
