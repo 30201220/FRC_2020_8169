@@ -69,10 +69,31 @@ public class OI {
   }
 
   public OI(){
-    this.dButtonSTART.whenPressed(new NormalShoot());
+    //this.dButtonSTART.whenPressed(new NormalShoot());
     //this.dButtonRB.whenPressed(new ballTracking());
-    this.dButtonRIGHT.whenPressed(new shootEephus());
-    this.dButtonLB.whenPressed(new spinnerUB());
+    this.dButtonSTART.whenPressed(new shootEephus());
+    //this.dButtonLB.whenPressed(new spinnerUB());
+  }
+
+  public boolean trueFalseSwitch(int button, boolean oldState){
+    boolean a = false;
+    boolean flag = false;
+    if(a){
+      if(Robot.m_oi.getDriverButton(button)){
+        flag = false;
+        if(Robot.m_oi.getDriverButton(button) != oldState){
+          a = false;
+        }
+      }
+    } else {
+      if(Robot.m_oi.getDriverButton(button)){
+        flag = true;
+        if(Robot.m_oi.getDriverButton(button) != oldState){
+          a = true;
+        }
+      }
+    }
+    return flag;
   }
   //// CREATI
   //// CREATING BUTTONS

@@ -19,8 +19,7 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class ballCatch extends Command {
-  boolean a;
-  boolean oldState;
+  boolean oldStateB, oldStateX;
   public ballCatch() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.m_intake);
@@ -30,14 +29,27 @@ public class ballCatch extends Command {
   @Override
   protected void initialize() {
     Robot.m_intake.setcatchcylinderup();
-    a = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
-    if(a == false){
+    if(Robot.m_oi.trueFalseSwitch(RobotMap.BUTTON_B, oldStateB)){
+      Robot.m_intake.setcatchcylinderup();
+    } else {
+      Robot.m_intake.setcatchcylinderdown();
+    }
+    oldStateB = Robot.m_oi.getDriverButton(RobotMap.BUTTON_B);
+
+    if (Robot.m_oi.trueFalseSwitch(RobotMap.BUTTON_X, oldStateX)) {
+      Robot.m_intake.setMotorIntake(1);
+    } else{
+      Robot.m_intake.setMotorIntake(0);
+    }
+    oldStateX = Robot.m_oi.getDriverButton(RobotMap.BUTTON_X);
+
+
+    /*if(a == false){
       if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_B) == true){
         Robot.m_intake.setMotorIntake(1);
         Robot.m_intake.setcatchcylinderdown();
@@ -54,7 +66,10 @@ public class ballCatch extends Command {
         }
       }
     }
-    oldState = Robot.m_oi.getDriverButton(RobotMap.BUTTON_B);
+    oldState = Robot.m_oi.getDriverButton(RobotMap.BUTTON_B);*/
+
+
+
   }
 
   // Make this return true when this Command no longer needs to run execute()

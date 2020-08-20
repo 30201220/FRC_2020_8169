@@ -14,7 +14,8 @@ import frc.robot.RobotMap;
 public class tankControl extends Command {
   public tankControl() {
     // Use requires() here to declare subsystem dependencies
-    //requires(Robot.m_drivetrain);
+    if(Robot.sControlMode == "tankControl")
+      requires(Robot.m_drivetrain);
   }
 
   // Called just before this Command runs the first time
