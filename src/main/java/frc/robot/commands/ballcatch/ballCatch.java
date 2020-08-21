@@ -15,11 +15,13 @@
 package frc.robot.commands.ballcatch;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class ballCatch extends Command {
   boolean oldStateB, oldStateX;
+  boolean b,x;
   public ballCatch() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.m_intake);
@@ -34,7 +36,8 @@ public class ballCatch extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Robot.m_oi.trueFalseSwitch(RobotMap.BUTTON_B, oldStateB)){
+
+    /*if(Robot.m_oi.trueFalseSwitch(RobotMap.BUTTON_B, oldStateB)){
       Robot.m_intake.setcatchcylinderup();
     } else {
       Robot.m_intake.setcatchcylinderdown();
@@ -46,27 +49,46 @@ public class ballCatch extends Command {
     } else{
       Robot.m_intake.setMotorIntake(0);
     }
-    oldStateX = Robot.m_oi.getDriverButton(RobotMap.BUTTON_X);
+    oldStateX = Robot.m_oi.getDriverButton(RobotMap.BUTTON_X);*/
 
 
-    /*if(a == false){
+    if(b == false){
       if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_B) == true){
-        Robot.m_intake.setMotorIntake(1);
         Robot.m_intake.setcatchcylinderdown();
-        if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_B) != oldState){
-          a = true;
+        if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_B) != oldStateB){
+          b = true;
         }
       }
-    } else if(a == true){
+    } else if(b == true){
       if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_B) == true){
-        Robot.m_intake.setMotorIntake(0);
         Robot.m_intake.setcatchcylinderup();
-        if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_B) != oldState){
-          a = false;
+        if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_B) != oldStateB){
+          b = false;
         }
       }
     }
-    oldState = Robot.m_oi.getDriverButton(RobotMap.BUTTON_B);*/
+    oldStateB = Robot.m_oi.getDriverButton(RobotMap.BUTTON_B);
+
+    if(x == false){
+      if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_X) == true){
+        Robot.m_intake.setMotorIntake(1);
+        if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_X) != oldStateX){
+          x = true;
+        }
+      }
+    } else if(x == true){
+      if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_X) == true){
+        Robot.m_intake.setMotorIntake(0);
+        if(Robot.m_oi.getOperatorButton(RobotMap.BUTTON_X) != oldStateX){
+          x = false;
+        }
+      }
+    }
+
+    SmartDashboard.putBoolean("motorIntake", x);
+    oldStateX = Robot.m_oi.getOperatorButton(RobotMap.BUTTON_X);
+
+    
 
 
 

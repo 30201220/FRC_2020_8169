@@ -69,10 +69,11 @@ public class OI {
   }
 
   public OI(){
-    //this.dButtonSTART.whenPressed(new NormalShoot());
+    this.dButtonSTART.whenPressed(new NormalShoot());
     //this.dButtonRB.whenPressed(new ballTracking());
-    this.dButtonSTART.whenPressed(new shootEephus());
+    //this.dButtonSTART.whenPressed(new shootEephus());
     //this.dButtonLB.whenPressed(new spinnerUB());
+    this.dButtonX.whenPressed(new shootEephus());
   }
 
   public boolean trueFalseSwitch(int button, boolean oldState){

@@ -36,6 +36,7 @@ public class autoLimeMove extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.m_shooter.setMotorShooterSeaUrchin(-1);
     firstangle = Robot.m_ahrs.getAngle();
     setTimeout(m_time);
   }
@@ -61,7 +62,8 @@ public class autoLimeMove extends Command {
   protected void end() {
     Robot.m_drivetrain.setRightMotors(0);
     Robot.m_drivetrain.setLeftMotors(0);
-    Robot.m_intake.setMotorIntake(0);
+    Robot.m_shooter.setMotorShooterSeaUrchin(0);
+    //Robot.m_intake.setMotorIntake(0);
   }
 
   // Called when another command which requires one or more of the same

@@ -95,7 +95,8 @@ public class RobotMap {
   public static final double nIntakeSpeed = 0.4;
 
   public static final double SPEED_MOTOR_SPINNER = 0.5;
-  public static final double LIMELIGHT_SHOOT_TX = -4.63;
+  public static final double LIMELIGHT_SHOOT_TX = -4.2;
+  
 
 
 

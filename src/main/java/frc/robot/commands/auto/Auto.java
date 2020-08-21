@@ -21,12 +21,12 @@ public class Auto extends CommandGroup {
    * Add your docs here.
    */
   public Auto() {
-    //addSequential(new autoUB());
-    addSequential(new autoLimeMove(1,-0.6));
+    addSequential(new autoUB());
+    addSequential(new autoLimeMove(2.25,0.4));
     //addSequential(new NormalShoot());
-    //addSequential(new autoRotate());
-    //addSequential(new autoAngleModify());
-    //addSequential(new autoShoot());
+    addSequential(new autoRotate());
+    addSequential(new autoAngleModify());
+    addSequential(new autoShoot());
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

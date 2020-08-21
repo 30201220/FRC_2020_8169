@@ -70,7 +70,7 @@ public class autoRotate extends Command {
   protected void interrupted() {
   }
   public void PIDAngle(){
-    Aerror = 180-angle; // Error = Target - Actual
+    Aerror = 135-angle; // Error = Target - Actual
     //this.integral += (error*.02); // Integral is increased by the error*time (which is .02 seconds using normal IterativeRobot)
     //derivative = (error - this.previous_error) / .02;
     Arcw = P*Aerror ;//+ I*this.integral + D*derivative;

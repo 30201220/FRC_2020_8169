@@ -29,7 +29,8 @@ public class driveControl extends Command {
   double D = 1;
   public driveControl() {
     // Use requires() here to declare subsystem dependencies
-    if(Robot.sControlMode == "defaultMode")
+    /*if(Robot.sControlMode == "defaultMode" || Robot.sControlMode == null)
+      requires(Robot.m_drivetrain);*/
       requires(Robot.m_drivetrain);
   }
 

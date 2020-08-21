@@ -21,7 +21,7 @@ import frc.robot.RobotMap;
 
 public class shootEephus extends Command {
   double Aerror,Arcw;
-  double a;
+  double shooterEncoder;
   double targetTurnSpeed = 28000;
   double Pa;
   public shootEephus() {
@@ -37,8 +37,10 @@ public class shootEephus extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    a = Robot.m_shooter.getMotorShooEncoder();
-    SmartDashboard.putNumber("a", a);
+
+    shooterEncoder = Robot.m_shooter.getMotorShooEncoder();
+    SmartDashboard.putNumber("shooterEncoder", shooterEncoder);
+
     PIDAngle();
     Robot.m_shooter.setMotorShooterFly((targetTurnSpeed + Arcw)/29000);
     if(Aerror<500){
@@ -48,7 +50,7 @@ public class shootEephus extends Command {
     }
     
     if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_Y)){
-      Robot.m_shooter.setMotorShooter2(1);
+      Robot.m_shooter.setMotorShooter2(1.5);
     } else {
       Robot.m_shooter.setMotorShooter2(0);
     }
@@ -74,7 +76,7 @@ public class shootEephus extends Command {
   }
   
   public void PIDAngle(){
-    Aerror = targetTurnSpeed - (-a); // Error = Target - Actual
+    Aerror = targetTurnSpeed - (-shooterEncoder); // Error = Target - Actual
     //this.integral += (error*.02); // Integral is increased by the error*time (which is .02 seconds using normal IterativeRobot)
     //derivative = (error - this.previous_error) / .02;
     Arcw = Pa*Aerror ;//+ I*this.integral + D*derivative;

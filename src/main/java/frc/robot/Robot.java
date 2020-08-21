@@ -26,8 +26,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.commands.UBCommand;
 import frc.robot.commands.auto.Auto;
-import frc.robot.commands.ballshoot.NormalShoot;
-import frc.robot.commands.ballshoot.angleModify;
+import frc.robot.commands.carcontrol.driveControl;
+import frc.robot.commands.carcontrol.tankControl;
 import frc.robot.subsystems.*;
 
 public class Robot extends TimedRobot {
@@ -45,17 +45,15 @@ public class Robot extends TimedRobot {
   Command UBcommand = new UBCommand();
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
-  SendableChooser<String> m_controlModeChooser = new SendableChooser<>();
 
   @Override
   public void robotInit() {
     UBcommand.start();
-    m_controlModeChooser.addOption("Tank Mode", "tankMode");
-    m_controlModeChooser.addOption("Default Mode", "defaultMode");
-    SmartDashboard.putData("Control Mode", m_controlModeChooser);
+    
     //m_chooser.addOption("My Auto", new Auto());
     //m_chooser.addOption("Default Auto", null);
     SmartDashboard.putData("Auto mode", m_chooser);
+
   }
 
   @Override
@@ -64,7 +62,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
-    
+    m_intake.setMotorIntake(0);
   }
 
   @Override
@@ -102,7 +100,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    sControlMode = SmartDashboard.getString("Control Mode", "defaultMode");
+    m_drivetrain.mSetDefaultCommand();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -111,6 +109,18 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    //sControlMode="tankMode";
+    /*switch (sControlMode) {
+      case "tankMode":
+        new tankControl().start();
+        break;
+      case "defaultMode":
+        new driveControl().start();
+        break;
+      default:
+        new tankControl().start();
+        break;
+    }*/
   }
 
   @Override

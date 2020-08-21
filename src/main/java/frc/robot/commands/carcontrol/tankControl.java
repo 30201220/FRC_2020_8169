@@ -14,7 +14,7 @@ import frc.robot.RobotMap;
 public class tankControl extends Command {
   public tankControl() {
     // Use requires() here to declare subsystem dependencies
-    if(Robot.sControlMode == "tankControl")
+    //if(Robot.sControlMode == "tankMode")
       requires(Robot.m_drivetrain);
   }
 
@@ -28,8 +28,8 @@ public class tankControl extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_drivetrain.setRightMotors(Robot.m_oi.getDriverRawAxis(RobotMap.RIGHT_STICK_Y));
-    Robot.m_drivetrain.setLeftMotors(Robot.m_oi.getDriverRawAxis(RobotMap.LEFT_STICK_Y));
+    Robot.m_drivetrain.setRightMotors(-Robot.m_oi.getDriverRawAxis(RobotMap.RIGHT_STICK_Y));
+    Robot.m_drivetrain.setLeftMotors(-Robot.m_oi.getDriverRawAxis(RobotMap.LEFT_STICK_Y));
   }
 
   // Make this return true when this Command no longer needs to run execute()

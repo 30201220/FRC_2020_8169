@@ -18,7 +18,6 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -29,7 +28,7 @@ public class angleModify extends Command {
   double I = 0.01;
   double D = 1;
   double Pa = 1.2;
-  double Pi = 1.2;
+  double Pi = 0.65;
   boolean modify;
   int modify1;
   public angleModify() {
@@ -55,11 +54,9 @@ public class angleModify extends Command {
     y = ty.getDouble(0.0);
     x = tx.getDouble(0.0);
     PIDAngle();
-    PIDDistance();
-    Robot.m_drivetrain.setLeftMotors(Ircw + Arcw/25);
-    Robot.m_drivetrain.setRightMotors(Ircw - Arcw/25);
-
-
+    //PIDDistance();
+    Robot.m_drivetrain.setLeftMotors(/*-Ircw*/ + Arcw/25);
+    Robot.m_drivetrain.setRightMotors(/*-Ircw*/ - Arcw/25);
 
     if(( Arcw/27) < 0.05 && ( Arcw/27) > -0.05){
       modify = true;
@@ -103,16 +100,18 @@ public class angleModify extends Command {
   }
 
   public void PIDDistance(){
-    Ierror = area - (0.42);
+    Ierror = y - (-6.3);
     Ircw = Pi*Ierror;
   }
 }
 //tx: -3.43°
 //ty: -7.22°
 //ta: +0.531%
+
 //tx: -6.35°
 //ty: -7.56°
 //ta: +0.420%
+
 //tx: -4.63°
 //ty: -7.55°
 //ta: +0.420%
