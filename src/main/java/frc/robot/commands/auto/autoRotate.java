@@ -21,7 +21,7 @@ import frc.robot.Robot;
 public class autoRotate extends Command {
   double angle;
   double Aerror,Arcw;
-  double P = 0.8;
+  double P = 1.2;
   double I = 0.01;
   double D = 1;
   boolean modify;
@@ -70,7 +70,7 @@ public class autoRotate extends Command {
   protected void interrupted() {
   }
   public void PIDAngle(){
-    Aerror = 135-angle; // Error = Target - Actual
+    Aerror = 140-angle; // Error = Target - Actual
     //this.integral += (error*.02); // Integral is increased by the error*time (which is .02 seconds using normal IterativeRobot)
     //derivative = (error - this.previous_error) / .02;
     Arcw = P*Aerror ;//+ I*this.integral + D*derivative;

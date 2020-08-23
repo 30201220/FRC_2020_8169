@@ -22,7 +22,7 @@ import frc.robot.RobotMap;
 public class shootEephus extends Command {
   double Aerror,Arcw;
   double shooterEncoder;
-  double targetTurnSpeed = 28000;
+  double targetTurnSpeed = RobotMap.TARGET_TURN_SPEED;
   double Pa;
   public shootEephus() {
     // Use requires() here to declare subsystem dependencies

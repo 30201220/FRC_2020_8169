@@ -22,7 +22,7 @@ public class Auto extends CommandGroup {
    */
   public Auto() {
     addSequential(new autoUB());
-    addSequential(new autoLimeMove(2.25,0.4));
+    addSequential(new autoLimeMove(4.5,0.3));
     //addSequential(new NormalShoot());
     addSequential(new autoRotate());
     addSequential(new autoAngleModify());

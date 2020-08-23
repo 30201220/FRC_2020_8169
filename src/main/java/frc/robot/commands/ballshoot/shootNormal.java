@@ -26,7 +26,7 @@ public class shootNormal extends Command {
   double y,x,area;
   double Rerror,Rrcw;
   double r;
-  double targetTurnSpeed = 28000;
+  double targetTurnSpeed = RobotMap.TARGET_TURN_SPEED;
   double Pa;
   public shootNormal() {
     // Use requires() here to declare subsystem dependencies
@@ -47,6 +47,10 @@ public class shootNormal extends Command {
     NetworkTableEntry ta = table.getEntry("ta");
     y = ty.getDouble(0.0);
     x = tx.getDouble(0.0);
+
+    SmartDashboard.putNumber("x", x);
+    SmartDashboard.putNumber("distance", y);
+    
     area = ta.getDouble(0.0);
     r = Robot.m_shooter.getMotorShooEncoder();
     PIDRotateSpeed();

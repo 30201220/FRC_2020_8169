@@ -16,12 +16,13 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class autoShoot extends Command {
   double y;
   double Rerror,Rrcw;
   double r;
-  double targetTurnSpeed = 22000;
+  double targetTurnSpeed = RobotMap.TARGET_TURN_SPEED;
   double Pa;
   public autoShoot() {
     // Use requires() here to declare subsystem dependencies
@@ -31,19 +32,24 @@ public class autoShoot extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    System.out.println("Test:autoShootInit");
+
     Robot.m_shooter.setMotorShooter2(0.5);
-    setTimeout(5);
+
+    Robot.m_intake.setMotorIntake(1);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    System.out.println("Test:autoShootExecute");
+    Robot.m_shooter.setMotorShooterSeaUrchin(-0.75);
     r = Robot.m_shooter.getMotorShooEncoder();
     PIDRotateSpeed();
     Robot.m_shooter.setMotorShooterFly((targetTurnSpeed + Rrcw)/29000);
-    if(Rerror<200){
-      Robot.m_shooter.setMotorShooterSeaUrchin(1);
-    }
+   /* if(Rerror<200){
+      Robot.m_shooter.setMotorShooterSeaUrchin(-1);
+    }*/
     if(Rerror<500){
       Pa = 20;
     } else {
@@ -54,7 +60,7 @@ public class autoShoot extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return false;
   }
 
   // Called once after isFinished returns true

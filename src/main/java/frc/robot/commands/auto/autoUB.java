@@ -27,8 +27,8 @@ public class autoUB extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.m_intake.setcatchcylinderdown();
-    Robot.m_intake.setMotorIntake(1.1);//0~2.5
+    Robot.m_intake.setcatchcylinderdown();//
+    Robot.m_intake.setMotorIntake(1);//0~2.5//
     Robot.m_ahrs.reset();
     //Robot.m_shooter.setMotorShooterFly(0.75);
     used = true;

@@ -63,6 +63,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     m_intake.setMotorIntake(0);
+    m_shooter.setMotorShooterFly(0);
   }
 
   @Override

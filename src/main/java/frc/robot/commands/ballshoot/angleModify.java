@@ -18,6 +18,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -29,6 +30,10 @@ public class angleModify extends Command {
   double D = 1;
   double Pa = 1.2;
   double Pi = 0.65;
+  double Rerror,Rrcw;
+  double r;
+  double targetTurnSpeed = RobotMap.TARGET_TURN_SPEED;
+  double Pt;
   boolean modify;
   int modify1;
   public angleModify() {
@@ -51,8 +56,18 @@ public class angleModify extends Command {
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-shoot");
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
+
+    if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_Y)){
+      Robot.m_shooter.setMotorShooter2(1);
+    } else {
+      Robot.m_shooter.setMotorShooter2(0);
+    }
     y = ty.getDouble(0.0);
     x = tx.getDouble(0.0);
+
+    SmartDashboard.putNumber("x", x);
+    SmartDashboard.putNumber("distance", y);
+
     PIDAngle();
     //PIDDistance();
     Robot.m_drivetrain.setLeftMotors(/*-Ircw*/ + Arcw/25);
@@ -64,12 +79,19 @@ public class angleModify extends Command {
     } else{
       modify = false;
     }
+    if(Rerror<500){
+      Pt = 20;
+    } else {
+      Pt = 10;
+    }
+    PIDRotateSpeed();
+    Robot.m_shooter.setMotorShooterFly((targetTurnSpeed + Rrcw)/29000);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if(modify1 > 100){
+    if(modify1 > 50){
       return modify;
     } else if(Robot.m_oi.getDriverButton(RobotMap.BUTTON_BACK)){
       return true;
@@ -102,6 +124,12 @@ public class angleModify extends Command {
   public void PIDDistance(){
     Ierror = y - (-6.3);
     Ircw = Pi*Ierror;
+  }
+  public void PIDRotateSpeed(){
+    Rerror = targetTurnSpeed - (-r); // Error = Target - Actual
+    //this.integral += (error*.02); // Integral is increased by the error*time (which is .02 seconds using normal IterativeRobot)
+    //derivative = (error - this.previous_error) / .02;
+    Rrcw = Pt*Rerror ;//+ I*this.integral + D*derivative;
   }
 }
 //tx: -3.43°

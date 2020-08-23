@@ -28,7 +28,11 @@ public class autoAngleModify extends Command {
   double derivative;
   double I = 0.01;
   double D = 1;
-  double Pa = 0.75;
+  double Pa = 1;
+  double Rerror,Rrcw;
+  double r;
+  double targetTurnSpeed = RobotMap.TARGET_TURN_SPEED;
+  double Pt;
   boolean modify;
   int modify1;
   public autoAngleModify() {
@@ -53,12 +57,15 @@ public class autoAngleModify extends Command {
     y = ty.getDouble(0.0);
     x = tx.getDouble(0.0);
 
+    SmartDashboard.putNumber("x", x);
+    SmartDashboard.putNumber("distance", y);
+
     PIDAngle();
 
     Robot.m_drivetrain.setLeftMotors (Arcw/27);
     Robot.m_drivetrain.setRightMotors(-Arcw/27);
 
-    if(( Arcw/27) < 0.05 && ( Arcw/27) > -0.05){
+    if(( Arcw/27) < 0.1 && ( Arcw/27) > -0.1){
       modify = true;
       modify1 += 1;
     } else{
@@ -66,12 +73,20 @@ public class autoAngleModify extends Command {
     }
 
     SmartDashboard.putNumber("distance", y);
+
+    if(Rerror<500){
+      Pt = 20;
+    } else {
+      Pt = 10;
+    }
+    PIDRotateSpeed();
+    Robot.m_shooter.setMotorShooterFly((targetTurnSpeed + Rrcw)/29000);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if(modify1 > 100){
+    if(modify1 > 50){
       return modify;
     } else {
       return false;
@@ -96,5 +111,11 @@ public class autoAngleModify extends Command {
     //this.integral += (error*.02); // Integral is increased by the error*time (which is .02 seconds using normal IterativeRobot)
     //derivative = (error - this.previous_error) / .02;
     Arcw = Pa*Aerror ;//+ I*this.integral + D*derivative;
+  }
+  public void PIDRotateSpeed(){
+    Rerror = targetTurnSpeed - (-r); // Error = Target - Actual
+    //this.integral += (error*.02); // Integral is increased by the error*time (which is .02 seconds using normal IterativeRobot)
+    //derivative = (error - this.previous_error) / .02;
+    Rrcw = Pt*Rerror ;//+ I*this.integral + D*derivative;
   }
 }
